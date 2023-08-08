@@ -2,6 +2,26 @@ const path = require("path");
 const { createFilePath } = require(`gatsby-source-filesystem`);
 const blogPostTemplate = path.resolve(`./src/templates/blog-post.tsx`);
 
+/**
+ * Custom Webpack config
+ *
+ * Adds aliases for paths (like components)
+ * so you don't get lost in relative hell -> '../../../'
+ */
+exports.onCreateWebpackConfig = ({ config, actions }) => {
+  actions.setWebpackConfig({
+    resolve: {
+      alias: {
+        "@components": path.join(__dirname, "./src/components"),
+        "@theme": path.join(__dirname, "./src/theme"),
+      },
+    },
+  });
+};
+
+/**
+ * Generate and slug to MDX content
+ */
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions;
 
@@ -20,6 +40,9 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
   }
 };
 
+/**
+ * Create pages for MDX content
+ */
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions;
 
