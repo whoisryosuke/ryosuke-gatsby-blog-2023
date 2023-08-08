@@ -1,15 +1,13 @@
 import React from "react"
 import { graphql } from "gatsby"
 import { MDXProvider } from "@mdx-js/react"
-import { Link } from "gatsby"
-
-const shortcodes = { Link } // Provide common components here
+import MDXComponents from "../components/mdx-components"
 
 export default function BlogPostTemplate({ data, children }) {
   return (
     <>
       <h1>{data.mdx.frontmatter.title}</h1>
-      <MDXProvider components={shortcodes}>
+      <MDXProvider components={MDXComponents}>
         {children}
       </MDXProvider>
     </>
