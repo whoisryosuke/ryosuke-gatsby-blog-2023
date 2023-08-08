@@ -19,6 +19,9 @@ export const query = graphql`
     mdx(id: { eq: $id }) {
       frontmatter {
         title
+        date
+        tags
+        cover_image
       }
     }
   }
